@@ -89,14 +89,13 @@ import { Employee, Product } from './utils.js';
 
       // <a href="./assets/img/products/${product.images[0]}" data-gallery="productGallery"
       //               class="product-lightbox preview-link" title="${product.title}"><i class="bx bx-plus"></i></a>
+      // <a href="${product.link}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
       const card = `
             <div class="col-lg-4 col-md-6 product-item filter-${product.type}">
               <img src="./assets/img/products/${product.images[0]}" class="img-fluid" alt="">
               <div class="product-info">
                   <h4>${outputString}</h4>
                   <p>${product.price} $ | ${product.rating} rating</p>
-                  
-                  <a href="${product.link}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
             </div>`;
       productList.innerHTML += card;
