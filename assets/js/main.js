@@ -3,7 +3,7 @@
 * Author: Mohamad Aboud
 */
 
-import { Employee, Product } from './utils.js';
+import { Employee, Product, getStarRatingHtml } from './utils.js';
 
 
 (function() {
@@ -69,6 +69,8 @@ import { Employee, Product } from './utils.js';
     console.error(error);
   });
 
+  
+
   /**
    * Add Team to
    */
@@ -76,29 +78,34 @@ import { Employee, Product } from './utils.js';
   fetch('./assets/data/products.json')
   .then(response => response.json())
   .then(data => {
-    data.forEach(function(sub) {
+    data.forEach(async function(sub) {
       const product = Product.fromJson(sub);
-      // Split the string into an array of words
-      const words = product.title.split(" ");
-
-      // Take the first 10 words of the array
-      const first10Words = words.slice(0, 5);
-
-      // Join the words back together into a string
-      const outputString = first10Words.join(" ") +"...";
-
-      // <a href="./assets/img/products/${product.images[0]}" data-gallery="productGallery"
-      //               class="product-lightbox preview-link" title="${product.title}"><i class="bx bx-plus"></i></a>
-      // <a href="${product.link}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
       const card = `
-            <div class="col-lg-4 col-md-6 product-item filter-${product.type}">
-              <img src="./assets/img/products/${product.images[0]}" class="img-fluid" alt="">
-              <div class="product-info">
-                  <h4>${outputString}</h4>
-                  <p>${product.price} $ | ${product.rating} rating</p>
-                </div>
-            </div>`;
+      <div class="col-lg-4 col-md-6 product-item filter-${product.type}">
+      <div class="product-card">
+        <img src="./assets/img/products/${product.images[0]}" class="img-fluid" alt="image">
+        <div class="product-details">
+          <span style="color:red" class="product-name">${product.title}</span>
+          <p> ${product.subtitle} </p>
+          <div class="stars">
+              ${getStarRatingHtml(product.rating)}
+            </div>
+
+            <div class="color-price">
+              <div class="price">
+                <span class="price_num">$${product.price}</span>
+              </div>
+            </div>
+        </div>
+       
+        <div class="button">
+          <div class="button-layer"></div>
+           <button>More details</button>
+          </div>
+        </div>
+    </div>`;
       productList.innerHTML += card;
+      
     });
   })
   .catch(error => {
@@ -106,7 +113,10 @@ import { Employee, Product } from './utils.js';
     console.error(error);
   });
 
- 
+  /**
+   * Prodeuct color hover
+   */
+
   
   /**
    * Easy selector helper function

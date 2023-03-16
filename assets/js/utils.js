@@ -71,7 +71,7 @@ class Product {
     this.images = images;
     this.title = title;
     this.subtitle = subtitle;
-    this.price = price
+    this.price = price.toFixed(2);
     this.brand = brand;
     this.rating = rating
     this.link = link
@@ -92,5 +92,24 @@ class Product {
   }
 }
 
+function getStarRatingHtml(rating) {
+  const fullStars = Math.floor(rating);
+  const halfStar = (rating % 1 !== 0);
+  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+  let starHtml = '';
+  for (let i = 0; i < fullStars; i++) {
+    starHtml += '<i class="bi bi-star-fill"></i>';
+  }
+  if (halfStar) {
+    starHtml += '<i class="bi bi-star-half"></i>';
+  }
+  for (let i = 0; i < emptyStars; i++) {
+    starHtml += '<i class="bi bi-star"></i>';
+  }
+
+  return starHtml;
+}
+
+
 // Export
-export { Employee, Product };
+export { Employee, Product, getStarRatingHtml };
