@@ -80,6 +80,18 @@ import { Employee, Product, getStarRatingHtml } from './utils.js';
   .then(data => {
     data.forEach(async function(sub) {
       const product = Product.fromJson(sub);
+
+      // <div class="color-price">
+      //     <div class="price">
+      //         <span class="price_num">$${product.price}</span>
+      //     </div>
+      //  </div>
+
+      // <div class="button">
+      //     <div class="button-layer"></div>
+      //      <button>More details</button>
+      //     </div>
+      //   </div>
       const card = `
       <div class="col-lg-4 col-md-6 product-item filter-${product.type}">
       <div class="product-card">
@@ -91,18 +103,10 @@ import { Employee, Product, getStarRatingHtml } from './utils.js';
               ${getStarRatingHtml(product.rating)}
             </div>
 
-            <div class="color-price">
-              <div class="price">
-                <span class="price_num">$${product.price}</span>
-              </div>
-            </div>
+            
         </div>
        
-        <div class="button">
-          <div class="button-layer"></div>
-           <button>More details</button>
-          </div>
-        </div>
+        
     </div>`;
       productList.innerHTML += card;
       
